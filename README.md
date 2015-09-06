@@ -50,7 +50,7 @@ console.log(res);
 
 ```
 
-####Retreiving distance between two points on earth####
+####Retreiving bearing between two points on earth####
 
 ```javascript
 
