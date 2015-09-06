@@ -1,5 +1,5 @@
-GooGeoTools
-===========
+GeoTools
+========
 
 A useful collection of Geotools. The module uses in most cases promises.
 
