@@ -1,0 +1,33 @@
+{
+  "name": "Ti.GooGeoTools”,
+  "version": “0.0.1”,
+  "description": “Collections of geo tools",
+  "main": “de.appwerft.googeotools.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AppWerft/Ti.GooGeoTools.git"
+  },
+  "titaniumManifest": {
+   "name": "Ti.GooGeoTools”,
+   "moduleid" : "de.appwerft.googeotools”,
+   "guid": "30dc3aaa-cd6f-de94-f361-31c199531c91”
+  },
+  "engines": {
+    "titaniumsdk": ">= 3.3.0"
+  },
+   "nativeDependencies": {
+    "org.favo.promise" : "*"
+  },
+  "keywords": [
+    “Google”,”Webservices”,”Geocoding”,”GeoIp”,”KMLparser”,”Direction”,”Appcelerator","AppWerft"
+  ],
+  "author": "Rainer Schleevoigt",
+  "license": "LGPL-2.1",
+  "bugs": {
+    "url": "https://github.com/AppWerft/Ti.GooGeoTools/issues"
+  },
+  "homepage": "https://github.com/AppWerft/Ti.GooGeoTools"
+}
