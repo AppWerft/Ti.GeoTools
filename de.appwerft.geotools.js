@@ -10,6 +10,8 @@ if (!("toRadians" in Number.prototype)) {
 	};
 };
 
+var geonamesuser = Ti.App.Properties.hasProperty('geonamesuser') ? Ti.App.Properties.getString('geonamesuser') : 'demo';
+
 var Promises = require('org.favo.promise');
 
 exports.getPositionByIP = function(_ip) {
@@ -24,6 +26,24 @@ exports.getPositionByIP = function(_ip) {
 		}
 	});
 	xhr.open('GET', 'http://freegeoip.net/json/' + ip);
+	xhr.send();
+	return promise;
+};
+
+exports.getElevation = function() {
+	var position = arguments[0] || {};
+	var φ = Array.isArray(position) ? position[0] : position.lat || position.latitude;
+	var λ = Array.isArray(position) ? position[1] : position.lng || position.lon || position.longitude;
+	var promise = Promise.defer();
+	var xhr = Ti.UI.createHTTPClient({
+		onload : function() {
+			promise.resolve(JSON.parse(this.responseText));
+		},
+		onerror : function(_e) {
+			promise.reject(_e);
+		}
+	});
+	xhr.open('POST', 'http://api.geonames.org/astergdemJSON?lat=' + φ + '&lng=' + λ + '&username=' + geonamesuser);
 	xhr.send();
 	return promise;
 };
@@ -100,10 +120,10 @@ exports.getRoute = function() {
 	};
 	var source = arguments[0] || {};
 	var destination = arguments[0] || {};
-	φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
-	λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
-	λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
+	var φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
+	var λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
+	var φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
+	var λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
 	var client = Ti.Network.createHTTPClient({
 		onload : function() {
 			var route = JSON.parse(this.responseText).routes[0];
@@ -137,11 +157,11 @@ exports.getRoute = function() {
 exports.getDistance = function() {
 	var source = arguments[0] || {};
 	var destination = arguments[0] || {};
-	φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
-	λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
-	λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
-	var R = 6371000;
+	var φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
+	var λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
+	var φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
+	var λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
+	const R = 6371000;
 	// metres
 	var φ1 = φ1.toRadians();
 	var φ2 = φ2.toRadians();
@@ -162,4 +182,4 @@ exports.getBearing = function() {
 	var y = Math.sin(λ2 - λ1) * Math.cos(φ2);
 	var x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
 	return Math.atan2(y, x).toDegrees();
-}; 
+};

@@ -16,7 +16,7 @@ GooGeoTools.getPositionByIP(null).then(function(_res){
 });
 
 ```
-#
+
 ####Retreiving region (for Ti.Map) by country:###
 
 ```javascript
@@ -27,6 +27,19 @@ GooGeoTools.getRegionByCountry('Poland').then(function(_res){
     console.log(_res);
 });
 ```
+
+####Retreiving elevation by position:###
+
+```javascript
+
+var GooGeoTools = require('de.appwerft.googeotools');
+
+GooGeoTools.getElevationByPosition({lat:53.5,lon:10}).then(function(_res){
+    console.log(_res);
+});
+```
+
+
 
 ####Retreiving route from source to destination, gives you list af legs and polyline for Ti.Map####
 
