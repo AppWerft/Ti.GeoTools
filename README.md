@@ -71,8 +71,36 @@ var geotools = require('de.appwerft.geotools');
 
 var res = geotools.getBearing({lat:53.5,lon:10},{lat:55,lon:8});
 console.log(res);
-
 ```
+
+####Calculating Geo from GK####
+
+```javascript
+
+var geotools = require('de.appwerft.geotools');
+
+var res = geotools.GaussKrueger2Geo({
+    rw : 3461404, 
+    hw : 5483498
+});
+console.log(res);
+```
+
+####Calculating Geo from UTM####
+
+```javascript
+
+var geotools = require('de.appwerft.geotools');
+
+var res = geotools.UTM2Geo({
+    zone:'32U',
+    ew : 565781.334,
+    nw : 5934297.972
+});
+console.log(res);
+```
+
+
 ####Parsing remote KML####
 
 ```javascript
