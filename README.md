@@ -73,7 +73,7 @@ var res = geotools.getBearing({lat:53.5,lon:10},{lat:55,lon:8});
 console.log(res);
 ```
 
-####Calculating Geo from GK####
+####Converting GaussKrüger to Geo (WGS84 Web Mercator)####
 
 ```javascript
 
@@ -86,7 +86,7 @@ var res = geotools.GaussKrueger2Geo({
 console.log(res);
 ```
 
-####Calculating Geo from UTM####
+####Converting UTM to Geo (WGS84 Web Mercator)####
 
 ```javascript
 
