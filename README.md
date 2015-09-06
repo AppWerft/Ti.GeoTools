@@ -1,7 +1,7 @@
 GooGeoTools
 ===========
 
-A useful collection of Geotools.
+A useful collection of Geotools. The module uses in most cases promises.
 
 Usage:
 -----
