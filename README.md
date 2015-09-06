@@ -39,7 +39,7 @@ GooGeoTools.getRoute({lat:53.5,lon:10},{lat:55,lon:8}).then(function(_res){
 });
 ```
 
-####Retreiving distance between two points on earth####
+####Calculating distance between two points on earth####
 
 ```javascript
 
@@ -50,7 +50,7 @@ console.log(res);
 
 ```
 
-####Retreiving bearing between two points on earth####
+####Calculating bearing between two points on earth####
 
 ```javascript
 
