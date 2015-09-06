@@ -1,7 +1,7 @@
 var Promises = require('org.favo.promise');
 
 exports.getPositionByIP = function(_ip) {
-	var ip = _ip ? _ip : Ti.Platform.getAddress( );
+	var ip = _ip ? _ip : Ti.Platform.getAddress();
 	var promise = Promise.defer();
 	var xhr = Ti.UI.createHTTPClient({
 		onload : function() {
@@ -11,7 +11,7 @@ exports.getPositionByIP = function(_ip) {
 			promise.reject(_e);
 		}
 	});
-	xhr.open('GET','http://freegeoip.net/json/'+ip);
+	xhr.open('GET', 'http://freegeoip.net/json/' + ip);
 	xhr.send();
 	return promise;
 };
@@ -88,9 +88,36 @@ exports.getRoute = function() {
 	};
 	var source = arguments[0] || {};
 	var destination = arguments[0] || {};
-	source.φ = Array.isArray(source) ? source[0]: source.lat || source.latitude ;
+	source.φ = Array.isArray(source) ? source[0] : source.lat || source.latitude;
 	source.λ = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	destination.φ = Array.isArray(destination) ? destination[0]: destination.lat || destination.latitude ;
+	destination.φ = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
 	destination.λ = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
-		
+	var client = Ti.Network.createHTTPClient({
+		onload : function() {
+			var route = JSON.parse(this.responseText).routes[0];
+			if (route)
+				promise.resolve({
+					steps : route.legs[0].steps,
+					meta : route.legs[0].distance.text + '\n' + route.legs[0].duration.text,
+					"end_address" : route.legs[0]['end_address'],
+					"start_address" : route.legs[0]['start_address'],
+					region : {
+						latitude : (route.bounds.northeast.lat + route.bounds.southwest.lat) / 2,
+						longitude : (route.bounds.northeast.lng + route.bounds.southwest.lng) / 2,
+						latitudeDelta : 1.2 * Math.abs(route.bounds.northeast.lat - route.bounds.southwest.lat),
+						longitudeDelta : 1.2 * Math.abs(route.bounds.northeast.lng - route.bounds.southwest.lng)
+					},
+
+					route : decodeLine(route['overview_polyline'].points)
+				});
+			else
+				promise.reject();
+		}
+	});
+	var url = 'https://maps.googleapis.com/maps/api/directions/json?language='+Ti.Location.getLanguage()+'&sensor=false'//
+	+ '&mode=WALKING' + // '
+	+ '&origin=' + source.φ + ',' +source.λ //
+	+ '&destination=' + destination.φ + ',' +destination.λ;
+	client.open('GET', url);
+	client.send();
 };
