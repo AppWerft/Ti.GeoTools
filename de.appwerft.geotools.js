@@ -192,13 +192,49 @@ exports.loadKML = function() {
 	var promise = Promise.defer();
 	var xhr = Ti.UI.createHTTPClient({
 		onload : function() {
-			
+			var res = {
+				points : [],
+				linestrings : []
+			};
+			var placemarklist = this.responseXML.documentElement.getElementsByTagName("Placemark");
+			for (var placemarklistindex = 0; placemarklistindex < placemarklist.length; placemarklistindex++) {
+				var placemarknode = placemarklist.item(placemarklistindex);
+				/* now we can collect points: */
+				if ( Point = placemarknode.getElementsByTagName("Point")) {
+					var coords = Point.getElementsByTagName('coordinates').item(0).text;
+					res.points.push({
+						name : placemarknode.getElementsByTagName('name').item(0).text,
+						latitude : coords.split(',')[1],
+						longitude : coords.split(',')[0]
+					});
+				}
+				if ( LineString = placemarknode.getElementsByTagName("LineString")) {
+					var points = [];
+					var coords = LineString.getElementsByTagName('coordinates').item(0).text.split(' ');
+					var coords_length = coords.length;
+					for (var cc = 0; cc < coords_length; cc++) {
+						loc = coords[cc].split(',');
+						if (loc[0] && loc[1]) {
+							points.push({
+								latitude : loc[1],
+								longitude : loc[0]
+							});
+						}
+					}
+					res.linestrings.push({
+						name : placemarknode.getElementsByTagName('name').item(0).text,
+						points : points
+					});
+				}
+				/* now we can collect linestring: */
+
+			}
 		},
 		onerror : function(_e) {
 			promise.reject(_e);
 		}
 	});
-	xhr.open('GET',url);
+	xhr.open('GET', url);
 	xhr.send();
 	return promise;
 	return promise;
