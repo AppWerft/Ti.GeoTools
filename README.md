@@ -38,3 +38,15 @@ GooGeoTools.getRoute({lat:53.5,lon:10},{lat:55,lon:8}).then(function(_res){
     console.log(_res);
 });
 ```
+
+####Retreiving distance between two points on earth####
+
+```javascript
+
+var GooGeoTools = require('de.appwerft.googeotools');
+
+var res = GooGeoTools.getDistance({lat:53.5,lon:10},{lat:55,lon:8});
+console.log(_res);
+
+```
+

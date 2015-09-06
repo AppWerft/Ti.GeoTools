@@ -114,10 +114,28 @@ exports.getRoute = function() {
 				promise.reject();
 		}
 	});
-	var url = 'https://maps.googleapis.com/maps/api/directions/json?language='+Ti.Location.getLanguage()+'&sensor=false'//
+	var url = 'https://maps.googleapis.com/maps/api/directions/json?language=' + Ti.Location.getLanguage() + '&sensor=false'//
 	+ '&mode=WALKING' + // '
-	+ '&origin=' + source.φ + ',' +source.λ //
-	+ '&destination=' + destination.φ + ',' +destination.λ;
+	+'&origin=' + source.φ + ',' + source.λ//
+	+ '&destination=' + destination.φ + ',' + destination.λ;
 	client.open('GET', url);
 	client.send();
+};
+
+exports.getDistance = function() {
+	var source = arguments[0] || {};
+	var destination = arguments[0] || {};
+	source.φ = Array.isArray(source) ? source[0] : source.lat || source.latitude;
+	source.λ = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
+	destination.φ = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
+	destination.λ = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
+	var R = 6371000;
+	// metres
+	var φ1 = source.φ.toRadians();
+	var φ2 = destination.φ.toRadians();
+	var Δφ = (destination.φ - source.φ).toRadians();
+	var Δλ = (destination.λ - source.λ).toRadians();
+	var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	return R * c;
 };
