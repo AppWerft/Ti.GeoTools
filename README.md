@@ -5,7 +5,7 @@ A useful collection of Geotools.
 
 Usage:
 -----
-###Using FreegeoIP to get users geolocation without device functionality:###
+####Using FreegeoIP to get users geolocation without device functionality:####
 
 ```javascript
 
@@ -16,8 +16,8 @@ GooGeoTools.getPositionByIP(null).then(function(_res){
 });
 
 ```
-
-###Retreiving region (for Ti.Map) by country:###
+#
+####Retreiving region (for Ti.Map) by country:###
 
 ```javascript
 
@@ -28,7 +28,7 @@ GooGeoTools.getRegionByCountry('Poland').then(function(_res){
 });
 ```
 
-###Retreiving route from source to destination, gives you list af legs and polyline for Ti.Map###
+####Retreiving route from source to destination, gives you list af legs and polyline for Ti.Map####
 
 ```javascript
 
