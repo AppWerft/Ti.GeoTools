@@ -1,3 +1,9 @@
+if (!('toRadians' in Number.prototype)) { Number.prototype.toDegrees = 
+function() { return this * 180 / Math.PI; }; 
+
+if (!('toRadians' in Number.prototype)) { Number.prototype.toRadians = 
+function() { return this * Math.PI / 180; }; 
+
 var Promises = require('org.favo.promise');
 
 exports.getPositionByIP = function(_ip) {
@@ -88,10 +94,10 @@ exports.getRoute = function() {
 	};
 	var source = arguments[0] || {};
 	var destination = arguments[0] || {};
-	source.φ = Array.isArray(source) ? source[0] : source.lat || source.latitude;
-	source.λ = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	destination.φ = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
-	destination.λ = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
+	φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
+	λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
+	φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
+	λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
 	var client = Ti.Network.createHTTPClient({
 		onload : function() {
 			var route = JSON.parse(this.responseText).routes[0];
@@ -116,8 +122,8 @@ exports.getRoute = function() {
 	});
 	var url = 'https://maps.googleapis.com/maps/api/directions/json?language=' + Ti.Location.getLanguage() + '&sensor=false'//
 	+ '&mode=WALKING' + // '
-	+'&origin=' + source.φ + ',' + source.λ//
-	+ '&destination=' + destination.φ + ',' + destination.λ;
+	+'&origin=' + φ1 + ',' + λ1//
+	+ '&destination=' + φ2 + ',' + λ2;
 	client.open('GET', url);
 	client.send();
 };
@@ -125,17 +131,30 @@ exports.getRoute = function() {
 exports.getDistance = function() {
 	var source = arguments[0] || {};
 	var destination = arguments[0] || {};
-	source.φ = Array.isArray(source) ? source[0] : source.lat || source.latitude;
-	source.λ = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	destination.φ = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
-	destination.λ = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
+	φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
+	λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
+	φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
+	λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
 	var R = 6371000;
 	// metres
-	var φ1 = source.φ.toRadians();
-	var φ2 = destination.φ.toRadians();
-	var Δφ = (destination.φ - source.φ).toRadians();
-	var Δλ = (destination.λ - source.λ).toRadians();
+	var φ1 = φ1.toRadians();
+	var φ2 = φ2.toRadians();
+	var Δφ = (φ2 - φ1).toRadians();
+	var Δλ = (λ2 - λ1).toRadians();
 	var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	return R * c;
 };
+
+exports.getBearing = function() {
+	var source = arguments[0] || {};
+	var destination = arguments[0] || {};
+	φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
+	λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
+	φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
+	λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
+	var y = Math.sin(λ2 - λ1) * Math.cos(φ2);
+	var x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+	return Math.atan2(y, x).toDegrees();
+};
+
