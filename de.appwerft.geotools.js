@@ -260,5 +260,4 @@ exports.loadKML = function() {
 	xhr.open('GET', url);
 	xhr.send();
 	return promise;
-	return promise;
 };
