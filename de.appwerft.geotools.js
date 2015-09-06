@@ -3,7 +3,6 @@ if (!("toRadians" in Number.prototype)) {
 		return this * 180 / Math.PI;
 	};
 };
-
 if (!("toRadians" in Number.prototype)) {
 	Number.prototype.toRadians = function() {
 		return this * Math.PI / 180;
