@@ -9,9 +9,9 @@ Usage:
 
 ```javascript
 
-var GooGeoTools = require('de.appwerft.googeotools');
+var geotools = require('de.appwerft.geotools');
 
-GooGeoTools.getPositionByIP(null).then(function(_res){
+geotools.getPositionByIP(null).then(function(_res){
     console.log(_res);
 });
 
@@ -21,9 +21,9 @@ GooGeoTools.getPositionByIP(null).then(function(_res){
 
 ```javascript
 
-var GooGeoTools = require('de.appwerft.googeotools');
+var geotools = require('de.appwerft.geotools');
 
-GooGeoTools.getRegionByCountry('Poland').then(function(_res){
+geotools.getRegionByCountry('Poland').then(function(_res){
     console.log(_res);
 });
 ```
@@ -32,9 +32,9 @@ GooGeoTools.getRegionByCountry('Poland').then(function(_res){
 
 ```javascript
 
-var GooGeoTools = require('de.appwerft.googeotools');
+var geotools = require('de.appwerft.geotools');
 
-GooGeoTools.getElevationByPosition({lat:53.5,lon:10}).then(function(_res){
+geotools.getElevationByPosition({lat:53.5,lon:10}).then(function(_res){
     console.log(_res);
 });
 ```
@@ -45,9 +45,9 @@ GooGeoTools.getElevationByPosition({lat:53.5,lon:10}).then(function(_res){
 
 ```javascript
 
-var GooGeoTools = require('de.appwerft.googeotools');
+var geotools = require('de.appwerft.geotools');
 
-GooGeoTools.getRoute({lat:53.5,lon:10},{lat:55,lon:8}).then(function(_res){
+geotools.getRoute({lat:53.5,lon:10},{lat:55,lon:8}).then(function(_res){
     console.log(_res);
 });
 ```
@@ -56,9 +56,9 @@ GooGeoTools.getRoute({lat:53.5,lon:10},{lat:55,lon:8}).then(function(_res){
 
 ```javascript
 
-var GooGeoTools = require('de.appwerft.googeotools');
+var geotools = require('de.appwerft.geotools');
 
-var res = GooGeoTools.getDistance({lat:53.5,lon:10},{lat:55,lon:8});
+var res = geotools.getDistance({lat:53.5,lon:10},{lat:55,lon:8});
 console.log(res);
 
 ```
@@ -67,9 +67,9 @@ console.log(res);
 
 ```javascript
 
-var GooGeoTools = require('de.appwerft.googeotools');
+var geotools = require('de.appwerft.geotools');
 
-var res = GooGeoTools.getBearing({lat:53.5,lon:10},{lat:55,lon:8});
+var res = geotools.getBearing({lat:53.5,lon:10},{lat:55,lon:8});
 console.log(res);
 
 ```
