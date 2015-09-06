@@ -1,8 +1,14 @@
-if (!('toRadians' in Number.prototype)) { Number.prototype.toDegrees = 
-function() { return this * 180 / Math.PI; }; 
+if (!("toRadians" in Number.prototype)) {
+	Number.prototype.toDegrees = function() {
+		return this * 180 / Math.PI;
+	};
+};
 
-if (!('toRadians' in Number.prototype)) { Number.prototype.toRadians = 
-function() { return this * Math.PI / 180; }; 
+if (!("toRadians" in Number.prototype)) {
+	Number.prototype.toRadians = function() {
+		return this * Math.PI / 180;
+	};
+};
 
 var Promises = require('org.favo.promise');
 
@@ -156,5 +162,4 @@ exports.getBearing = function() {
 	var y = Math.sin(λ2 - λ1) * Math.cos(φ2);
 	var x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
 	return Math.atan2(y, x).toDegrees();
-};
-
+}; 
