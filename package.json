@@ -1,18 +1,18 @@
 {
-  "name": "Ti.GooGeoTools",
+  "name": "Ti.GeoTools",
   "version": "0.0.1",
   "description": "Collections of geo tools",
-  "main": "de.appwerft.googeotools.js",
+  "main": "de.appwerft.geotools.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AppWerft/Ti.GooGeoTools.git"
+    "url": "https://github.com/AppWerft/Ti.GeoTools.git"
   },
   "titaniumManifest": {
-   "name": "Ti.GooGeoTools",
-   "moduleid" : "de.appwerft.googeotools",
+   "name": "Ti.GeoTools",
+   "moduleid" : "de.appwerft.geotools",
    "guid": "30dc3aaa-cd6f-de94-f361-31c199531c91"
   },
   "engines": {
@@ -27,7 +27,7 @@
   "author": "Rainer Schleevoigt",
   "license": "LGPL-2.1",
   "bugs": {
-    "url": "https://github.com/AppWerft/Ti.GooGeoTools/issues"
+    "url": "https://github.com/AppWerft/Ti.GeoTools/issues"
   },
-  "homepage": "https://github.com/AppWerft/Ti.GooGeoTools"
+  "homepage": "https://github.com/AppWerft/Ti.GeoTools"
 }
