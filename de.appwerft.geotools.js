@@ -11,6 +11,7 @@ if (!("toRadians" in Number.prototype)) {
 };
 
 var geonamesuser = Ti.App.Properties.hasProperty('geonamesuser') ? Ti.App.Properties.getString('geonamesuser') : 'demo';
+var googleapikey = Ti.App.Properties.hasProperty('googleapikey') ? Ti.App.Properties.getString('googleapikey') : 'demo';
 
 var Promises = require('org.favo.promise');
 
@@ -75,6 +76,7 @@ exports.getRegionOfCountry = function(_country) {
 	});
 	xhr.open('GET', 'http://maps.googleapis.com/maps/api/geocode/json?address=' + country + '&sensor=false');
 	xhr.send();
+	return promise;
 };
 
 exports.getRoute = function() {
@@ -152,6 +154,7 @@ exports.getRoute = function() {
 	+ '&destination=' + φ2 + ',' + λ2;
 	client.open('GET', url);
 	client.send();
+	return promise;
 };
 
 exports.getDistance = function() {
@@ -182,4 +185,21 @@ exports.getBearing = function() {
 	var y = Math.sin(λ2 - λ1) * Math.cos(φ2);
 	var x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
 	return Math.atan2(y, x).toDegrees();
+};
+
+exports.loadKML = function() {
+	var url = arguments[0];
+	var promise = Promise.defer();
+	var xhr = Ti.UI.createHTTPClient({
+		onload : function() {
+			
+		},
+		onerror : function(_e) {
+			promise.reject(_e);
+		}
+	});
+	xhr.open('GET',url);
+	xhr.send();
+	return promise;
+	return promise;
 };

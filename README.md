@@ -73,5 +73,16 @@ var res = geotools.getBearing({lat:53.5,lon:10},{lat:55,lon:8});
 console.log(res);
 
 ```
+####Parsing remote KML####
+
+```javascript
+
+var geotools = require('de.appwerft.geotools');
+
+var res = geotools.loadKML('http://maps.google.com/maps/ms?ie=UTF&msa=0&msid=217110902183005084784.00049d962454fabcabdc2&output=kml').then(function(_res){
+    console.log(_res);
+});
+
+```
 
 
