@@ -19,13 +19,16 @@ exports.getPositionByIP = function(_ip) {
 	var promise = Promise.defer();
 	var xhr = Ti.Network.createHTTPClient({
 		onload : function() {
+			console.log(this.responseText);
 			promise.resolve(JSON.parse(this.responseText));
 		},
 		onerror : function(_e) {
+			console.log(_e);
 			promise.reject(_e);
 		}
 	});
 	xhr.open('GET', 'http://freegeoip.net/json/' + ip);
+	console.log( 'http://freegeoip.net/json/' + ip);
 	xhr.send();
 	return promise;
 };

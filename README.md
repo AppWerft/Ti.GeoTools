@@ -13,6 +13,8 @@ var geotools = require('de.appwerft.geotools');
 
 geotools.getPositionByIP(null).then(function(_res){
     console.log(_res);
+//{"ip":"192.168.2.21","country_code":"","country_name":"","region_code":"","region_name":"","city":"","zip_code":"","time_zone":"","latitude":0,"longitude":0,"metro_code":0}
+//{"ip":"134.100.17.2","country_code":"DE","country_name":"Germany","region_code":"HH","region_name":"Hamburg","city":"Hamburg","zip_code":"20099","time_zone":"Europe/Berlin","latitude":53.55,"longitude":10,"metro_code":0}
     
 
 });
