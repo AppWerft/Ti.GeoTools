@@ -48,7 +48,7 @@ exports.getElevation = function() {
 	return promise;
 };
 
-exports.getRegionOfCountry = function(_country) {
+exports.getRegionByCountry = function(_country) {
 	var promise = Promise.defer();
 	var country = _country || 'Deutschland';
 	var xhr = Ti.Network.createHTTPClient({

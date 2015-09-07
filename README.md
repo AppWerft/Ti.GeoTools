@@ -13,6 +13,8 @@ var geotools = require('de.appwerft.geotools');
 
 geotools.getPositionByIP(null).then(function(_res){
     console.log(_res);
+    
+
 });
 
 ```
@@ -25,6 +27,7 @@ var geotools = require('de.appwerft.geotools');
 
 geotools.getRegionByCountry('Poland').then(function(_res){
     console.log(_res);
+// {"latitude":51.919438,"longitude":19.145136,"latitudeDelta":5.833758799999998,"longitudeDelta":10.023029}
 });
 ```
 
