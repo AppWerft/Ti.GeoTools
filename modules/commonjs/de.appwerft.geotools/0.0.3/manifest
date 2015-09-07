@@ -1,0 +1,10 @@
+version: 0.0.3
+description: Collection of geo tools
+author: Rainer Schleevoigt
+license: LGPL-2.1
+copyright: Copyright © 2015 Rainer Schleevoigt
+name: Ti.GeoTools
+moduleid: de.appwerft.geotools
+guid: 30dc3aaa-cd6f-de94-f361-31c199531c91
+platform: commonjs
+minsdk: 3.3.0.GA

@@ -11,22 +11,29 @@
     "url": "https://github.com/AppWerft/Ti.GeoTools.git"
   },
   "titaniumManifest": {
-   "name": "Ti.GeoTools",
-   "moduleid" : "de.appwerft.geotools",
-   "guid": "30dc3aaa-cd6f-de94-f361-31c199531c91"
+    "name": "Ti.GeoTools",
+    "moduleid": "de.appwerft.geotools",
+    "guid": "30dc3aaa-cd6f-de94-f361-31c199531c91"
   },
   "engines": {
     "titaniumsdk": ">= 3.3.0"
   },
-   "nativeDependencies": {
-  },
+  "nativeDependencies": {},
   "keywords": [
-    "Google","Webservices", "Geocoding", "GeoIp", "KMLparser","Direction", "Appcelerator","AppWerft"
+    "Google",
+    "Webservices",
+    "Geocoding",
+    "GeoIp",
+    "KMLparser",
+    "Direction",
+    "Appcelerator",
+    "AppWerft"
   ],
   "author": "Rainer Schleevoigt",
   "license": "LGPL-2.1",
   "bugs": {
     "url": "https://github.com/AppWerft/Ti.GeoTools/issues"
   },
-  "homepage": "https://github.com/AppWerft/Ti.GeoTools"
+  "homepage": "https://github.com/AppWerft/Ti.GeoTools",
+  "_nativeDependencies": {}
 }

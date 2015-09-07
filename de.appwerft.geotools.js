@@ -12,7 +12,7 @@ if (!("toRadians" in Number.prototype)) {
 var geonamesuser = Ti.App.Properties.hasProperty('geonamesuser') ? Ti.App.Properties.getString('geonamesuser') : 'demo';
 var googleapikey = Ti.App.Properties.hasProperty('googleapikey') ? Ti.App.Properties.getString('googleapikey') : 'demo';
 
-var Promise = require('org.favo.promise');
+var Promise = require('./org.favo.promise');
 
 /* Implementation of exported module */
 var Module = {
@@ -177,14 +177,16 @@ var Module = {
 					var placemark = {};
 					for (var i = 0; i < childnodes.length; i++) {
 						var node = childnodes.item(i);
-						if (node.getNodetype == Ti.XML.Node.ELEMENT_NODE && node.getNodeName() != '#text') {
-							placemark[node.getNodeName()] = node.getTextContent();
+						var nodename = node.getNodeName();
+						if (nodename != '#text') {
+							placemark[nodename] = node.getTextContent();
 						}
 					}
 					if (placemark.Point !== undefined) {
-						placemark.latitude = placemark.Point.replace(/\s/g,'').split()[1];
-						placemark.longitude = placemark.Point.replace(/\s/g,'').split()[0];
-						delete placemark.Point;
+						var coords = placemark.Point.replace(/\s/g,'').split();
+						placemark.latitude = coords[1];
+						placemark.longitude = coords[0];
+						//delete placemark.Point;
 						res.points.push(placemark);
 					}
 					if (placemark.LineString !== undefined) {
@@ -194,7 +196,7 @@ var Module = {
 						res.polygones.push(placemark);
 					}
 				}
-				console.log('Info: KML parsingtime: ' + (new Date().getTime() - start));
+				console.log('Info: KML parsingtime: ' + (new Date().getTime() - start) + ' Elements=' + res.points.length);
 				promise.resolve(res);
 			},
 			onerror : function(_e) {
