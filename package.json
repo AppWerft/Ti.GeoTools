@@ -1,6 +1,6 @@
 {
   "name": "Ti.GeoTools",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Collections of geo tools",
   "main": "de.appwerft.geotools.js",
   "scripts": {
