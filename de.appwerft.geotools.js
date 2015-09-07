@@ -124,6 +124,7 @@ exports.getRoute = function() {
 	};
 	var source = arguments[0] || {};
 	var destination = arguments[0] || {};
+	var TYPE = arguments[2] || 'WALKING';
 	var φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
 	var λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
 	var φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
@@ -150,8 +151,8 @@ exports.getRoute = function() {
 				promise.reject();
 		}
 	});
-	var url = 'https://maps.googleapis.com/maps/api/directions/json?language=' + Ti.Location.getLanguage() + '&sensor=false'//
-	+ '&mode=WALKING' + // '
+	var url = 'https://maps.googleapis.com/maps/api/directions/json?language=' + Ti.Locale.getCurrentLanguage( )  + '&sensor=false'//
+	+ '&mode=' + TYPE // '
 	+'&origin=' + φ1 + ',' + λ1//
 	+ '&destination=' + φ2 + ',' + λ2;
 	client.open('GET', url);
