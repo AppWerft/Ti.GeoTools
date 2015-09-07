@@ -52,27 +52,6 @@ geotools.getRoute({lat:53.5,lon:10},{lat:55,lon:8}).then(function(_res){
 });
 ```
 
-####Calculating distance between two points on earth####
-
-```javascript
-
-var geotools = require('de.appwerft.geotools');
-
-var res = geotools.getDistance({lat:53.5,lon:10},{lat:55,lon:8});
-console.log(res);
-
-```
-
-####Calculating bearing between two points on earth####
-
-```javascript
-
-var geotools = require('de.appwerft.geotools');
-
-var res = geotools.getBearing({lat:53.5,lon:10},{lat:55,lon:8});
-console.log(res);
-```
-
 ####Converting GaussKrüger to Geo (WGS84 Web Mercator)####
 
 ```javascript

@@ -156,35 +156,7 @@ exports.getRoute = function() {
 	return promise;
 };
 
-exports.getDistance = function() {
-	var source = arguments[0] || {};
-	var destination = arguments[0] || {};
-	var φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
-	var λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	var φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
-	var λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
-	const R = 6371000;
-	// metres
-	var φ1 = φ1.toRadians();
-	var φ2 = φ2.toRadians();
-	var Δφ = (φ2 - φ1).toRadians();
-	var Δλ = (λ2 - λ1).toRadians();
-	var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	return R * c;
-};
 
-exports.getBearing = function() {
-	var source = arguments[0] || {};
-	var destination = arguments[0] || {};
-	φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
-	λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
-	φ2 = Array.isArray(destination) ? destination[0] : destination.lat || destination.latitude;
-	λ2 = Array.isArray(destination) ? destination[1] : destination.lng || destination.lon || destination.longitude;
-	var y = Math.sin(λ2 - λ1) * Math.cos(φ2);
-	var x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
-	return Math.atan2(y, x).toDegrees();
-};
 
 exports.loadKML = function() {
 	var url = arguments[0];
@@ -473,3 +445,11 @@ exports.UTM2Geo = function(zone, ew, nw) {
         longitude : lw
     };
 }; 
+
+exports.LatLon = function(lat, lon) {
+    // allow instantiation without 'new'
+    if (!(this instanceof LatLon)) return new LatLon(lat, lon);
+    this.lat = Number(lat);
+    this.lon = Number(lon);
+    return this;
+}
