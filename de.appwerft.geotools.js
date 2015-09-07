@@ -123,7 +123,7 @@ exports.getRoute = function() {
 		return points;
 	};
 	var source = arguments[0] || {};
-	var destination = arguments[0] || {};
+	var destination = arguments[1] || {};
 	var TYPE = arguments[2] || 'WALKING';
 	var φ1 = Array.isArray(source) ? source[0] : source.lat || source.latitude;
 	var λ1 = Array.isArray(source) ? source[1] : source.lng || source.lon || source.longitude;
