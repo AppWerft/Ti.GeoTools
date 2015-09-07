@@ -12,7 +12,7 @@ if (!("toRadians" in Number.prototype)) {
 var geonamesuser = Ti.App.Properties.hasProperty('geonamesuser') ? Ti.App.Properties.getString('geonamesuser') : 'demo';
 var googleapikey = Ti.App.Properties.hasProperty('googleapikey') ? Ti.App.Properties.getString('googleapikey') : 'demo';
 
-var Promises = require('org.favo.promise');
+var Promise = require('org.favo.promise');
 
 exports.getPositionByIP = function(_ip) {
 	var ip = _ip ? _ip : Ti.Platform.getAddress();
@@ -161,7 +161,7 @@ exports.getRoute = function() {
 exports.loadKML = function() {
 	var url = arguments[0];
 	var promise = Promise.defer();
-	var xhr = Ti.UI.createHTTPClient({
+	var xhr = Ti.Network.createHTTPClient({
 		onload : function() {
 			var res = {
 				points : [],
