@@ -1,0 +1,10 @@
+version: 1.0.0
+description: Simple Promises
+author:
+license:
+copyright: Copyright © 2015 -
+name: org.favo.promise
+moduleid: org.favo.promise
+guid: 671b0953-d412-d720-a8b9-6a53e444c945
+platform: commonjs
+minsdk: 3.2.0.GA

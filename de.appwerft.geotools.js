@@ -13,7 +13,59 @@ var geonamesuser = Ti.App.Properties.hasProperty('geonamesuser') ? Ti.App.Proper
 var googleapikey = Ti.App.Properties.hasProperty('googleapikey') ? Ti.App.Properties.getString('googleapikey') : 'demo';
 
 var Promise = require('./org.favo.promise');
+var array_from = (( typeof Array.from == "function") && Array.from) || ( function(array_prototype_slice) {
+		return function(type) {
+			return (type != null && array_prototype_slice.call(type)) || [];
+		};
+	}(Array.prototype.slice));
 
+var TI_XML_ELEMENT_NODE = Ti.XML.Node.ELEMENT_NODE;
+
+var aggregatePlacemarkNamesFunc = function(placemark, node) {
+	var nodeName = node.nodeName;
+	if (nodeName != '#text') {
+		placemark[nodeName] = node.textContent;
+	}
+	return placemark;
+};
+
+var parseAndRenderKML = function(xml, res) {
+	var start = new Date().getTime();
+	var placemarklist = xml.getElementsByTagName("Placemark");
+	var count = placemarklist.length;
+	var childnodes;
+	var placemark = {};
+	var placemarkPoint;
+	while (count) {
+		childnodes = placemarklist.item(--count).getChildNodes();
+		// Petsel
+		//placemark = array_from(childnodes).reduce(aggregatePlacemarkNamesFunc, {});
+
+		for (var i = 0; i < childnodes.length; i++) {
+			var node = childnodes.item(i);
+			var nodename = node.getNodeName();
+			if (nodename != '#text') {
+				placemark[nodename] = node.getTextContent();
+			}
+		}
+
+		if ( placemarkPoint = placemark.Point) {
+			var coords = placemarkPoint.replace(/\s/g, '').split(',');
+			placemark.latitude = parseFloat(coords[1]);
+			placemark.longitude = parseFloat(coords[0]);
+			delete placemark.Point;
+			res.points.push(placemark);
+		}
+		if (placemark.LineString !== undefined) {
+			res.lines.push(placemark);
+		}
+		if (placemark.Polygon !== undefined) {
+			res.polygones.push(placemark);
+		}
+	}
+	console.log('Info: KML parsingtime: ' + (new Date().getTime() - start));
+
+};
 /* Implementation of exported module */
 var Module = {
 	getPositionByIP : function(_ip) {
@@ -170,33 +222,8 @@ var Module = {
 					polygons : [],
 					statistics : null
 				};
-				var placemarklist = this.responseXML.documentElement.getElementsByTagName("Placemark");
-				for (var placemarklistindex = 0,
-				    placemarklistlength = placemarklist.length; placemarklistindex < placemarklistlength; placemarklistindex++) {
-					var childnodes = placemarklist.item(placemarklistindex).getChildNodes();
-					var placemark = {};
-					for (var i = 0; i < childnodes.length; i++) {
-						var node = childnodes.item(i);
-						var nodename = node.getNodeName();
-						if (nodename != '#text') {
-							placemark[nodename] = node.getTextContent();
-						}
-					}
-					if (placemark.Point !== undefined) {
-						var coords = placemark.Point.replace(/\s/g,'').split();
-						placemark.latitude = coords[1];
-						placemark.longitude = coords[0];
-						//delete placemark.Point;
-						res.points.push(placemark);
-					}
-					if (placemark.LineString !== undefined) {
-						res.lines.push(placemark);
-					}
-					if (placemark.Polygon !== undefined) {
-						res.polygones.push(placemark);
-					}
-				}
-				console.log('Info: KML parsingtime: ' + (new Date().getTime() - start) + ' Elements=' + res.points.length);
+				parseAndRenderKML(this.responseXML.documentElement, res);
+
 				promise.resolve(res);
 			},
 			onerror : function(_e) {

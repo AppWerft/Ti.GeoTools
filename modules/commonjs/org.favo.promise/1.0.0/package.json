@@ -1,0 +1,13 @@
+{
+  "description": "Simple Promises",
+  "directories": {
+    "lib": "."
+  },
+  "main": "org.favo.promise.js",
+  "name": "org.favo.promise",
+  "version": "1.0.0",
+  "titaniumManifest": {
+    "guid": "671b0953-d412-d720-a8b9-6a53e444c945"
+  },
+  "_nativeDependencies": {}
+}
